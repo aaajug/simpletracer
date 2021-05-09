@@ -1,5 +1,5 @@
 class ManagersController < ApplicationController
-  before_action :auth, except: %i[ login verify ] 
+  before_action :auth, except: %i[ login verify new create] 
   before_action :set_manager, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token, only: %i[findByMail]
 
@@ -21,12 +21,6 @@ class ManagersController < ApplicationController
   # GET /managers/new
   def new
     @manager = Manager.new
-  end
-
-  def initialize
-    session[:account] = "manager"
-    session[:currentId] = "root"
-    redirect_to '/maneger/add'
   end
 
   def findByMail
