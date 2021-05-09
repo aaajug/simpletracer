@@ -1,0 +1,39 @@
+<style type="text/css">
+	.storename:hover {
+		background-color: #fcba03;
+	}
+	#establishment-list {
+		padding:20px;width: 100%;max-height: 60vh;overflow-y: scroll;
+	}
+	.float-right {
+		float: right;
+	}
+</style>
+
+<div class="log card bg-white mb-5 pt-5 pb-5">
+	<div class="container">
+		<div class="grid">
+			<div class="row">
+				<div class="col-6">  
+						<div class="log card-body">
+							<h3>Add Establishment</h3>
+							<%= render 'form', establishment: @establishment %>
+						</div>
+				</div>
+				<div class="col-6" style="">
+					<h4>Establishments</h4>
+					<div class="bg-light" id="establishment-list">
+						<% Establishment.order('lower(estname) asc').each do | est | %>
+							<div class="storename pt-2 pb-2">&nbsp;&nbsp;<%= est.estname %>
+									&nbsp;&nbsp;
+								<span class="float-right">
+									<%= link_to 'remove', est, remote: true ,method: :delete, data: { confirm: 'Deleting this establishment will abandon its logs.Are you sure?' } %>
+								</span>
+							</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+  <div class="dropdown">
+      <div class="btn btn-dark dropdown-toggle" id="selectorButton" data-bs-toggle="dropdown" style="width: 30%">
+        Select Establishment
+      </div>
+      <ul class="dropdown-menu dropdown-menu-end" style="width: 30%;">
+        <% @establishments.each do |establishment| %>
+          <li>
+            <span class='dropdown-item' data-estid='<%=establishment.id %>'>
+              <%= establishment.estname %>
+            </span>  
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <% if !button.nil? %>
+    <button class='btn btn-outline-primary mt-2' id="selectedEstablishment" style="width: 30%"> <%= button %> </button>
+    <% end %>

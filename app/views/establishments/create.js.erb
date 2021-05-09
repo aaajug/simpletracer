@@ -1,0 +1,9 @@
+$("#establishment_estname").val('');
+$("#establishment-list").html(	'<% Establishment.order("lower(estname) asc").each do | est | %>'+
+							'<div class="storename pt-2 pb-2">&nbsp;&nbsp;<%= est.estname %>'+
+								'&nbsp;&nbsp;'+
+								'<span class="float-right">'+
+									'<%= link_to "remove", est, remote: true ,method: :delete, data: { confirm: "Deleting this establishment will abandon its logs.Are you sure?" } %>' +
+								'</span>'+
+							'</div>'+
+						'<% end %>');

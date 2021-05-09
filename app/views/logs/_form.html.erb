@@ -1,0 +1,32 @@
+<%= form_with(model: log) do |form| %>
+  <% if log.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(log.errors.count, "error") %> prohibited this log from being saved:</h2>
+
+      <ul>
+        <% log.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :'Full Name' %>
+    <%= form.text_field :fullname, class: 'form-control', placeholder: 'Firstname Lastname' %>
+  </div>
+
+  <div class="form-group pt-2">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: 'form-control', placeholder: 'email@provider.com'%>
+  </div>
+
+  <div class="form-group pt-2">
+    <%= form.label :mobile %>
+    <%= form.text_field :mobile, class: 'form-control', placeholder: '09XXXXXXXXX' %>
+  </div>
+
+  <div class="actions pt-4">
+    <%= form.submit "Submit",  class: 'fluid btn btn-dark' %>
+  </div>
+<% end %>

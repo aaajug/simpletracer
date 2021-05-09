@@ -1,0 +1,17 @@
+<br><br><br>
+<div class="d-flex justify-content-center align-content-center">
+	<div style="width: 20rem;">
+		<%= render 'form', log: @log %>
+	</div>
+	<div id="spacer" style="width: 0.5rem;"></div>
+		<div class="card text-white bg-dark" style="width: 28rem; padding: 2rem;">
+			  <div class="card-body">
+			    <h5 class="card-title display-6"><%= session[:name] %></h5>
+			    <h6 class="card-subtitle mb-2 text-muted">Establishment</h6>
+			    <p class="card-text pt-4">
+			    	Make sure to enter complete and accurate details.<br><br>
+			    	By submitting this form, you hereby accept our <u>Terms and Conditions</u>.
+			    </p>
+			  </div>
+		</div>
+</div>

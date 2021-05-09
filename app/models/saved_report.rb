@@ -1,0 +1,2 @@
+class SavedReport < ApplicationRecord
+end

@@ -1,0 +1,42 @@
+<style type="text/css">
+	.card {
+		cursor: pointer;
+	}
+	.card.bg-dark:hover {
+			opacity: 0.4;
+			transition: opacity .25s ease-in-out;
+	   -moz-transition: opacity .25s ease-in-out;
+	   -webkit-transition: opacity .25s ease-in-out;
+	}
+	.card.bg-light:hover {
+			opacity: 0.5;
+			transition: opacity .25s ease-in-out;
+	   -moz-transition: opacity .25s ease-in-out;
+	   -webkit-transition: opacity .25s ease-in-out;
+	}
+</style>
+
+<br><br><br><br>
+<div class="d-flex justify-content-center">
+	<a href="/<%= session[:name] %>/logs" style="text-decoration: none;">
+		<div class="card text-white bg-dark" style="width: 30rem; padding: 2rem;">
+			  <div class="card-body">
+			    <h5 class="card-title display-5">Our Logs</h5>
+			    <h6 class="card-subtitle mb-2 text-muted"><%= session[:name] %></h6>
+			    <p class="card-text pt-4">View all customer logs or between a specific date range.</p>
+			  </div>
+		</div>
+	</a>
+
+		<div id="spacer" style="width: 0.5rem;"></div>
+
+	<a href="/<%= session[:name] %>/trace" style="text-decoration: none;">
+		<div class="card text-dark bg-light" style="width: 30rem; padding: 2rem;">
+		  <div class="card-body">
+		    <h5 class="card-title display-5">Log Customers</h5>
+		    <h6 class="card-subtitle mb-2 text-muted"><%= session[:name] %></h6>
+		    <p class="card-text pt-4">Start logging customer visits.</p>
+		  </div>
+		</div>
+	</a>
+</div>

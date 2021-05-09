@@ -1,0 +1,20 @@
+<%= form_with do |form| %>
+	
+	<div class="form-group">
+	    <%= form.label :"manager ID" %>
+	    <%= form.text_field :managerId, class: 'form-control w-25', value: 'manager' %>
+	</div>
+
+	<div class="form-group mt-2 mb-2">
+	    <%= form.label :password %>
+	    <%= form.password_field :password, class: 'form-control w-25', value: 'password' %>
+	</div>
+
+	<% if !error.nil? %>
+		 <span class="text-danger">* <%= error %> <br>* Hint: manager and password</span>
+	<% end %>
+
+	<div class="actions mt-4">
+    <%= form.submit "Continue" , class: 'btn btn-primary'%>
+  </div>
+<% end %>

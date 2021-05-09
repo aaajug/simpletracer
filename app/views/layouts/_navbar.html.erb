@@ -1,0 +1,24 @@
+<nav class="navbar sticky-top navbar-dark bg-primary">
+<div class="container">
+		<a class="navbar-brand fs-3" href="/">
+			<svg class="d-inline-block align-middle" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-circle-square" viewBox="0 0 20 20">
+			  <path d="M0 6a6 6 0 1 1 12 0A6 6 0 0 1 0 6z"/>
+			  <path d="M12.93 5h1.57a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1.57a6.953 6.953 0 0 1-1-.22v1.79A1.5 1.5 0 0 0 5.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 4h-1.79c.097.324.17.658.22 1z"/>
+			</svg>&nbsp;
+			Tracer
+		</a>
+	<div class="right menu">
+		<% if session[:account] == "manager"%>
+			<%= link_to 'overview', '/manager/overview', class: "navbar-brand fs-6" %>
+			<%= link_to 'logout', '/'+session[:account]+'/logout', class: "navbar-brand fs-6" %>
+		<% elsif session[:account] == "establishment" %>
+			<%= link_to 'overview', '/establishment/'+session[:name], class: "navbar-brand fs-6" %>
+			<%= link_to 'logout', '/'+session[:account]+'/logout', class: "navbar-brand fs-6" %>
+		<% else %>
+			<span class="navbar-brand fs-6">log in as &nbsp;&nbsp;| </span>
+			<%= link_to 'manager', '/manager/login', class: "navbar-brand fs-6" %>
+			<%= link_to 'establishment', '/establishment/login', class: "navbar-brand fs-6" %>
+		<% end %>
+	</div>
+</div>
+</nav>

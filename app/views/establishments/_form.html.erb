@@ -1,0 +1,27 @@
+<%= form_with(model: establishment, local: false)do |form| %>
+  <% if establishment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(establishment.errors.count, "error") %> prohibited this establishment from being saved:</h2>
+
+      <ul>
+        <% establishment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :estname, class: 'form-control', placeholder: 'Store Name {a-zA-z0-9}' %>
+  </div>
+
+  <div class="form-group mt-2">
+    <%= form.label :password %>
+    <%= form.password_field :password, class: 'form-control', value: 'password', placeholder: 'password' %>
+  </div>
+
+  <div class="actions mt-4">
+    <%= form.submit 'Save', class: 'btn btn-primary'%>
+  </div>
+<% end %>

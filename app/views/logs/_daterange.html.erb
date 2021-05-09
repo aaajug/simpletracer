@@ -1,0 +1,14 @@
+<% @logs.each do |log| %>
+				<tr class="data">
+				  <td><%= log.created_at.strftime("%d %b %Y") %></td>
+				  <td><%= log.created_at.strftime("%I:%M %p") %></td>
+				  <td><%= log.fullname %></td>
+				  <td><%= log.email %></td>
+				  <td><%= log.mobile %></td>
+				  <% if @displayEstName == 'set_to_all'%>
+				  	<td><%= log.estname %></td>
+				  <% else%>
+						<td><%= @displayEstName %></td>
+					<%end%>
+				</tr>
+<% end %>

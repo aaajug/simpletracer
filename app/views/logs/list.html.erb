@@ -1,0 +1,101 @@
+<style type="text/css">
+  .log.table {
+    max-height: 65%;
+    overflow-y: scroll;
+  }
+  tr.data:hover {
+    background-color: #fad02a;
+  }
+  .input-group {
+    width: 7rem;
+    display: inline-block;
+  }
+</style>
+
+<div class="container pt-5">
+    <% if session[:account] == 'establishment' %>
+      <span class="display-6"><%= session[:name] %></span>
+    <% elsif session[:account] == 'manager' %>
+      <span class="display-6"><%= params['name'] %></span>
+  <% end %>
+
+  <br><br>
+  <%= form_with url: "/logs/daterange" , local:false , method: :post,id: "withRangeDates" do |form| %>
+      <%= hidden_field_tag(:email, @email) %>
+      <%= hidden_field_tag(:establishmentName, @estName) %>
+      <div id="startdatepicker" class="input-group date" data-date-format="yyyy/mm/dd" name="startdate">
+          <%= hidden_field_tag(:startdate, true) %>
+          <% if @confirmedcase %>
+              <input class="form-control" type="text" placeholder="<%= @startdate %>" style="width: 7rem;flex: none !important;"/>
+          <% else %>
+              <input class="form-control" type="text" placeholder="start date" style="width: 7rem;flex: none !important;"/>
+          <% end %>
+          <span class="input-group-addon"></span>
+       </div>
+       <div id="enddatepicker" class="input-group date" data-date-format="yyyy/mm/dd" name="enddate">
+          <%= hidden_field_tag(:enddate, true) %>
+          <% if @confirmedcase %>
+              <input class="form-control" type="text" placeholder="<%= @enddate %>" style="width: 7rem;flex: none !important;" />
+          <% else %>
+              <input class="form-control" type="text" placeholder="end date" style="width: 7rem;flex: none !important;" />
+          <% end %>
+          <span class="input-group-addon"></span>
+       </div >
+
+       <div  class="input-group date">
+          <input class="form-control" type="submit" name="commit" id="setDateRange" data-disable-with="view logs" value="view logs" style="width: 7rem;flex: none !important;background-color: #ffc107;border-color: #ffc107;" />
+          <span class="input-group-addon"></span>
+       </div >
+        <!-- <div class="input-group">
+          <input type="submit" class="btn btn-warning" name="commit" id="setDateRange" value="View Logs" data-disable-with="View Logs">
+
+        </div> -->
+  <% end %>
+  <div id="spacer" style="width: 0.5rem;"></div>
+    <div class="log card text-white bg-white">
+        <div class="log card-body">
+          <table class="log table table-borderless" id="">
+            <thead>
+              <tr>
+                <th>Date of Visit</th>
+                <th>Time of Visit</th>
+                <th>Fullname</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Establishment Visited</th>
+              </tr>
+            </thead>
+
+            <tbody id="estabishmentLogTableData">
+              <% @logs.each do |log| %>
+                <tr class="data">
+                  <td><%= log.created_at.strftime("%d %b %Y") %></td>
+                  <td><%= log.created_at.strftime("%I:%M %p") %></td>
+                  <td><%= log.fullname %></td>
+                  <td><%= log.email %></td>
+                  <td><%= log.mobile %></td>
+                  <td><%= log.estname %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  <br>
+</div>
+
+<script type="text/javascript">
+  $("tr.data").click(function() {
+    $("tr.data").css("background-color", "")
+    $(this).css("background-color", "#fad02a")
+  });
+  $("#startdatepicker").datepicker({ 
+        todayHighlight: true,
+        autoclose: true
+    });
+
+    $("#enddatepicker").datepicker({ 
+        todayHighlight: true,
+        autoclose: true
+    });
+</script>

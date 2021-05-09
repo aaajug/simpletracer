@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @saved_report.email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @saved_report.name %>
+</p>
+
+<p>
+  <strong>Casedate:</strong>
+  <%= @saved_report.caseDate %>
+</p>
+
+<p>
+  <strong>Linktofile:</strong>
+  <%= @saved_report.linkToFile %>
+</p>
+
+<%= link_to 'Edit', edit_saved_report_path(@saved_report) %> |
+<%= link_to 'Back', saved_reports_path %>

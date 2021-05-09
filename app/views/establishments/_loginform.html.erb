@@ -1,0 +1,29 @@
+
+<%= form_with do |form| %>
+	<% if !error.nil? %>
+		 <li><%= error %></li>
+	<% end %>
+	
+	<%= render '/establishments/selector', button: nil %>
+	
+	<input type="hidden" id="establishmentId" name="establishmentId" value="">
+	<input type="hidden" id="establishmentName" name="establishmentName" value="">
+
+	<div class="form-inline mt-2">
+	    <%= form.label :password %>
+	    <%= form.password_field :password, class: 'form-control', value: 'password', disabled: true, :style => "width: 30%;" %>
+	</div>
+
+	<div class="actions mt-4">
+    <%= form.submit "Continue", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$(".dropdown-item").click(function() {
+		$("#selectorButton").html($(this).text());
+		$("#establishmentId").val($(this).data('estid'));
+		$("#establishmentName").val($(this).text());
+
+	});
+</script>
