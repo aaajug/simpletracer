@@ -132,8 +132,10 @@ class LogsController < ApplicationController
       if session[:account] != 'establishment'
         redirect_to '/'
       elsif session[:account] == 'establishment'
-        if params['name'].strip != session[:name].strip
-          redirect_to '/' + session[:name] + "/" + request.fullpath.split('/')[-1]
+        if !params['name'].nil?
+          if params['name'].strip != session[:name].strip
+            redirect_to '/' + session[:name] + "/" + request.fullpath.split('/')[-1]
+          end
         end
       end
     end
