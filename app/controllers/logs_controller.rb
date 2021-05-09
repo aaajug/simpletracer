@@ -14,17 +14,17 @@ class LogsController < ApplicationController
       if params['name'].strip != session[:name].strip
         redirect_to '/' + session[:name] + "/logs"
       end
-      @logs = Log.where(establishmentId: session[:currentId]).joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select(:fullname, :email, :mobile, :created_at, 'establishments.estname as estname').order(created_at: :desc)
+      @logs = Log.where(establishmentid: session[:currentId]).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:fullname, :email, :mobile, :created_at, 'establishments.estname as estname').order(created_at: :desc)
     elsif session[:account] == "manager"
       if params['name'] == 'all'
         @estName = "Viewing all logs"
-        @logs = Log.select("logs.*, estname").joins('LEFT JOIN establishments ON logs.establishmentId = establishments.id').order(created_at: :desc)
+        @logs = Log.select("logs.*, estname").joins('LEFT JOIN establishments ON logs.establishmentid = establishments.id').order(created_at: :desc)
       else
         if request.original_fullpath.split('/',3)[1] != 'manager'
           redirect_to '/manager' + request.original_fullpath
         end
         @estName = view_params['name']
-        @logs = Log.joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select(:fullname, :email, :mobile, :created_at, 'establishments.estname as estname').where("establishments.estname='"+@estName+"'").order(created_at: :desc)
+        @logs = Log.joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:fullname, :email, :mobile, :created_at, 'establishments.estname as estname').where("establishments.estname='"+@estName+"'").order(created_at: :desc)
       end
     end 
   end
@@ -45,15 +45,15 @@ class LogsController < ApplicationController
   def daterange
     if session[:account] == 'manager'
       if params['establishmentName'] != 'Viewing all logs'
-        @logs = Log.joins('LEFT JOIN establishments ON logs.establishmentId == establishments.id').where(' establishments.estname = ? AND logs.created_at BETWEEN ? AND ? ', params['establishmentName'] ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
+        @logs = Log.joins('LEFT JOIN establishments ON logs.establishmentid == establishments.id').where(' establishments.estname = ? AND logs.created_at BETWEEN ? AND ? ', params['establishmentName'] ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
         @displayEstName = params['establishmentName']
       elsif params['establishmentName'] == 'Viewing all logs'
-        @logs = Log.select("establishments.estname", "logs.*").joins('LEFT JOIN establishments ON logs.establishmentId == establishments.id').where(' logs.created_at BETWEEN ? AND ? ' ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
+        @logs = Log.select("establishments.estname", "logs.*").joins('LEFT JOIN establishments ON logs.establishmentid == establishments.id').where(' logs.created_at BETWEEN ? AND ? ' ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
         @displayEstName = 'set_to_all'
 
       end
     elsif session[:account] == 'establishment'
-      @logs = Log.where(establishmentId: session[:currentId]).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
+      @logs = Log.where(establishmentid: session[:currentId]).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
       @displayEstName = session[:name]
     end
 
@@ -75,7 +75,7 @@ class LogsController < ApplicationController
       print "========="
       print email_lookup_params['email']
       print "========="
-      @ownLogs = Log.where(email: email_lookup_params['email']).order(created_at: :desc)#.joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select(:created_at, 'establishments.estname as estname')
+      @ownLogs = Log.where(email: email_lookup_params['email']).order(created_at: :desc)#.joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:created_at, 'establishments.estname as estname')
 
       # establishment visitors within 2 hours
       @otherContacts = Log.all
@@ -92,7 +92,7 @@ class LogsController < ApplicationController
   # POST /logs or /logs.json
   def create
     @log = Log.new(log_params)
-    @log.establishmentId = session[:currentId]   
+    @log.establishmentid = session[:currentId]   
 
     respond_to do |format|
       if @log.save

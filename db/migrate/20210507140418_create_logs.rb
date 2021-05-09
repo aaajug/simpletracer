@@ -4,7 +4,7 @@ class CreateLogs < ActiveRecord::Migration[6.1]
       t.string :fullname
       t.string :email
       t.string :mobile
-      t.integer :establishmentId
+      t.integer :establishmentid
 
       t.timestamps
     end

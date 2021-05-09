@@ -37,15 +37,15 @@ class ManagersController < ApplicationController
       if params[:casedate] == 'true'
         @confirmedcase = true
 
-        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")
+        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")
 
-        @otherContacts = Log.distinct.where('logs2.email != \''+@email+'\'').select('logs.establishmentId', 'estname', 'logs2.fullname', 'logs2.email', 'logs2.mobile', 'logs2.created_at').where(email: @email).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).joins('LEFT JOIN logs AS logs2 ON logs.establishmentId = logs2.establishmentId AND logs2.created_at BETWEEN datetime(logs.created_at, "-2 hour") AND datetime(logs.created_at, "+2 hour")').joins('LEFT JOIN establishments ON logs.establishmentId == establishments.id').order("logs.created_at DESC")
+        @otherContacts = Log.distinct.where('logs2.email != \''+@email+'\'').select('logs.establishmentid', 'estname', 'logs2.fullname', 'logs2.email', 'logs2.mobile', 'logs2.created_at').where(email: @email).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).joins('LEFT JOIN logs AS logs2 ON logs.establishmentid = logs2.establishmentid AND logs2.created_at BETWEEN datetime(logs.created_at, "-2 hour") AND datetime(logs.created_at, "+2 hour")').joins('LEFT JOIN establishments ON logs.establishmentid == establishments.id').order("logs.created_at DESC")
       elsif params[:casedate] == 'false' and !params[:startdate].nil? and !params[:enddate].nil?
         @otherContacts = nil
-        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")
+        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")
       else
         @otherContacts = nil
-        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select(:created_at, 'establishments.estname as estname').order(created_at: :desc)
+        @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:created_at, 'establishments.estname as estname').order(created_at: :desc)
       end
 
       # establishment visitors within 2 hours
@@ -54,7 +54,7 @@ class ManagersController < ApplicationController
       # print @otherContacts[0]
       # print "\n\n printed \n\n"
     elsif session[:account] == "establishment"
-      @ownLogs = Log.where(establishmentId: session[:currentId]).joins("LEFT JOIN establishments ON logs.establishmentId = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date).order("logs.created_at DESC")
+      @ownLogs = Log.where(establishmentid: session[:currentId]).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date).order("logs.created_at DESC")
     else
       redirect_to '/'
     end
