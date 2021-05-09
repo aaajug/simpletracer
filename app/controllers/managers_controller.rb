@@ -23,10 +23,10 @@ class ManagersController < ApplicationController
     @manager = Manager.new
   end
 
-  def try
-    respond_to do |format|
-      format.html { session[:currentId] }
-    end
+  def initialize
+    session[:account] = "manager"
+    session[:currentId] = "root"
+    redirect_to '/maneger/add'
   end
 
   def findByMail
