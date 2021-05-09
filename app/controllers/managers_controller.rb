@@ -10,7 +10,7 @@ class ManagersController < ApplicationController
     if session[:currentId].nil?
       redirect_to '/manager/login'
     else
-      @establishments = Establishment.order(:id, name: :desc)
+      @establishments = Establishment.order(estname: :asc)
     end
   end
 
