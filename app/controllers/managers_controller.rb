@@ -26,8 +26,8 @@ class ManagersController < ApplicationController
   def findByMail
     # visited 5 days prior to case date
 
-    @info = Log.where(email: email_lookup_params['email']).distinct.select(:mobile, :fullname)
-    @email = email_lookup_params['email']
+    @info = Log.where(email: email_lookup_params['email'].strip).distinct.select(:mobile, :fullname)
+    @email = email_lookup_params['email'].strip
     @startdate = params[:startdate]
     @enddate = params[:enddate]
 
@@ -39,7 +39,7 @@ class ManagersController < ApplicationController
 
         @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")
 
-        @otherContacts = Log.distinct.where('logs2.email != \''+@email+'\'').select('logs.establishmentid', 'estname', 'logs2.fullname', 'logs2.email', 'logs2.mobile', 'logs2.created_at').where(email: @email).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).joins('LEFT JOIN logs AS logs2 ON logs.establishmentid = logs2.establishmentid AND logs2.created_at BETWEEN datetime(logs.created_at, "-2 hour") AND datetime(logs.created_at, "+2 hour")').joins('LEFT JOIN establishments ON logs.establishmentid = establishments.id').order("logs.created_at DESC")
+        @otherContacts = Log.distinct.where('logs2.email != \''+@email+'\'').select('logs.establishmentid', 'estname', 'logs2.fullname', 'logs2.email', 'logs2.mobile', 'logs2.created_at').where(email: @email).where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).joins('LEFT JOIN logs AS logs2 ON logs.establishmentid = logs2.establishmentid AND logs2.created_at BETWEEN (logs.created_at  - interval \'2 hours\') AND logs.created_at  + interval \'2 hours\')').joins('LEFT JOIN establishments ON logs.establishmentid = establishments.id').order("logs.created_at DESC")
       elsif params[:casedate] == 'false' and !params[:startdate].nil? and !params[:enddate].nil?
         @otherContacts = nil
         @ownLogs = Log.where(email: @email).joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select('logs.created_at', 'establishments.estname as estname').where('logs.created_at BETWEEN ? AND ? ', params[:startdate].to_date,params[:enddate].to_date+1).order("logs.created_at DESC")

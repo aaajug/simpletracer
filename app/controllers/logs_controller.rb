@@ -2,11 +2,6 @@ class LogsController < ApplicationController
   before_action :auth, only: %i[ trace create]
   before_action :set_log, only: %i[ edit update destroy ]
 
-  # GET /logs or /logs.json by
-  def index
-    @logs = Log.all
-  end
-
   # GET /logs/1 or /logs/1.json
   def list
     # show appropriate logs ordered by time descending
@@ -63,19 +58,13 @@ class LogsController < ApplicationController
   end
 
   def findByMail
-    # visited 5 days prior to case date
-    @data = "accepted"
-    print "\n\nparameters: "
-    print params
-    print "end of parameters\n\n"
-
-    @info = Log.where(email: email_lookup_params['email']).distinct.select(:mobile, :fullname)
+    @info = Log.where(email: email_lookup_params['email'].strip).distinct.select(:mobile, :fullname)
     
     if session[:account] == "manager"
       print "========="
-      print email_lookup_params['email']
+      print email_lookup_params['email'].strip
       print "========="
-      @ownLogs = Log.where(email: email_lookup_params['email']).order(created_at: :desc)#.joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:created_at, 'establishments.estname as estname')
+      @ownLogs = Log.where(email: email_lookup_params['email'].strip).order(created_at: :desc)#.joins("LEFT JOIN establishments ON logs.establishmentid = establishments.id").select(:created_at, 'establishments.estname as estname')
 
       # establishment visitors within 2 hours
       @otherContacts = Log.all

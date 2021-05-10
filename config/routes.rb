@@ -26,6 +26,4 @@ Rails.application.routes.draw do
   post '/:name/trace', to: 'logs#create'
 
   post '/logs/daterange', to: 'logs#daterange'
-
-  get '/logs/view', to: 'logs#index'
 end
