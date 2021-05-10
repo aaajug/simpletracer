@@ -1,13 +1,19 @@
   <style>
     #dropdown-establishment {
       min-width: 30%;
-      max-height: 50vh;
+      max-height: 42vh;
       overflow-y: scroll;
+    }
+    #selectorButton {
+      width: 30%;
+    }
+    #selectedEstablishment {
+      width: 30%;
     }
   </style>
 
   <div class="dropdown">
-      <div class="btn btn-dark dropdown-toggle" id="selectorButton" data-bs-toggle="dropdown" style="width: 30%">
+      <div class="btn btn-dark dropdown-toggle" id="selectorButton" data-bs-toggle="dropdown">
         Select Establishment
       </div>
       <ul class="dropdown-menu dropdown-menu-end" id="dropdown-establishment">
@@ -22,5 +28,5 @@
     </div>
 
     <% if !button.nil? %>
-    <button class='btn btn-outline-primary mt-2' id="selectedEstablishment" style="width: 30%"> <%= button %> </button>
+    <button class='btn btn-outline-primary mt-2' id="selectedEstablishment"> <%= button %> </button>
     <% end %>
