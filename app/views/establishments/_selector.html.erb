@@ -1,8 +1,16 @@
+  <style>
+    #dropdown-establishment {
+      min-width: 30%;
+      max-height: 50vh;
+      overflow-y: scroll;
+    }
+  </style>
+
   <div class="dropdown">
       <div class="btn btn-dark dropdown-toggle" id="selectorButton" data-bs-toggle="dropdown" style="width: 30%">
         Select Establishment
       </div>
-      <ul class="dropdown-menu dropdown-menu-end" style="width: 30%;">
+      <ul class="dropdown-menu dropdown-menu-end" id="dropdown-establishment">
         <% @establishments.each do |establishment| %>
           <li>
             <span class='dropdown-item' data-estid='<%=establishment.id %>'>
