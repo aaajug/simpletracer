@@ -45,10 +45,10 @@ class LogsController < ApplicationController
   def daterange
     if session[:account] == 'manager'
       if params['establishmentName'] != 'Viewing all logs'
-        @logs = Log.joins('LEFT JOIN establishments ON logs.establishmentid == establishments.id').where(' establishments.estname = ? AND logs.created_at BETWEEN ? AND ? ', params['establishmentName'] ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
+        @logs = Log.joins('LEFT JOIN establishments ON logs.establishmentid = establishments.id').where(' establishments.estname = ? AND logs.created_at BETWEEN ? AND ? ', params['establishmentName'] ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
         @displayEstName = params['establishmentName']
       elsif params['establishmentName'] == 'Viewing all logs'
-        @logs = Log.select("establishments.estname", "logs.*").joins('LEFT JOIN establishments ON logs.establishmentid == establishments.id').where(' logs.created_at BETWEEN ? AND ? ' ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
+        @logs = Log.select("establishments.estname", "logs.*").joins('LEFT JOIN establishments ON logs.establishmentid = establishments.id').where(' logs.created_at BETWEEN ? AND ? ' ,params[:startdate].to_date,params[:enddate].to_date+1).order(created_at: :desc)
         @displayEstName = 'set_to_all'
 
       end
