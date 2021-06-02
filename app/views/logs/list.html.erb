@@ -54,6 +54,9 @@
   <div id="spacer" style="width: 0.5rem;"></div>
     <div class="log card text-white bg-white">
         <div class="log card-body">
+        <% if @logs.empty? %>
+          <span class='text-primary'> No logs.</span>
+        <% else %>
           <table class="log table table-borderless" id="">
             <thead>
               <tr>
@@ -79,6 +82,7 @@
               <% end %>
             </tbody>
           </table>
+        <% end %>
         </div>
       </div>
   <br>

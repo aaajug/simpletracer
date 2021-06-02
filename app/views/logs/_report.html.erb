@@ -68,33 +68,40 @@
 
 <h5>Establishments visited</h5>
 <div class="log card bg-white mb-5">
-        <div class="log card-body">
-<table class="table table-borderless table-hover">
-  <thead>
-    <tr>
-      <th>Date of Visit</th>
-      <th>Time of Visit</th>
-      <th>Establishment Visited</th>
-    </tr>
-  </thead>
+  <div class="log card-body">
+  <% if @ownLogs.empty? %>
+    <span class='text-primary'>No Establishments visited.</span>
+  <% else %>
+    <table class="table table-borderless table-hover">
+      <thead>
+        <tr>
+          <th>Date of Visit</th>
+          <th>Time of Visit</th>
+          <th>Establishment Visited</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @ownLogs.each do |log| %>
-      <tr>
-        <td><%= log.created_at.strftime("%d %b %Y") %></td>
-        <td><%= log.created_at.strftime("%I:%M %p") %></td>
-        <td><%= log.estname %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
+      <tbody>
+        <% @ownLogs.each do |log| %>
+          <tr>
+            <td><%= log.created_at.strftime("%d %b %Y") %></td>
+            <td><%= log.created_at.strftime("%I:%M %p") %></td>
+            <td><%= log.estname %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  </div>
 </div>
 
 <% if @confirmedcase %>
 <h5>Other possible contacts</h5>
 <div class="log card text-white bg-white">
   <div class="log card-body">
+  <% if @otherContacts.empty? %>
+    <span class='text-primary'>No other possible contacts.</span>
+  <% else %>
     <table class="table table-borderless table-hover">
       <thead>
         <tr>
@@ -120,6 +127,7 @@
         <% end %>
       </tbody>
     </table>
+  <% end %>
   </div>
 </div>
 <% end %>

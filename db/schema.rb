@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_07_140418) do
+ActiveRecord::Schema.define(version: 2021_05_12_063527) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "establishments", force: :cascade do |t|
     t.string "estname"
     t.string "password"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["estname"], name: "index_establishments_on_estname", unique: true
   end
 
   create_table "logs", force: :cascade do |t|
@@ -34,6 +38,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_140418) do
     t.string "addedBy"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["managerId"], name: "index_managers_on_managerId", unique: true
   end
 
   create_table "saved_reports", force: :cascade do |t|

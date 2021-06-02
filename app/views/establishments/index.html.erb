@@ -14,12 +14,16 @@
 	   -moz-transition: opacity .25s ease-in-out;
 	   -webkit-transition: opacity .25s ease-in-out;
 	}
+	.padded {
+		width: 30rem; 
+		padding: 2rem;
+	}
 </style>
 
 <br><br><br><br>
 <div class="d-flex justify-content-center">
-	<a href="/<%= session[:name] %>/logs" style="text-decoration: none;">
-		<div class="card text-white bg-dark" style="width: 30rem; padding: 2rem;">
+	<a class='simple' href="/<%= session[:name] %>/logs">
+		<div class="card text-white bg-dark padded">
 			  <div class="card-body">
 			    <h5 class="card-title display-5">Our Logs</h5>
 			    <h6 class="card-subtitle mb-2 text-muted"><%= session[:name] %></h6>
@@ -31,7 +35,7 @@
 		<div id="spacer" style="width: 0.5rem;"></div>
 
 	<a href="/<%= session[:name] %>/trace" style="text-decoration: none;">
-		<div class="card text-dark bg-light" style="width: 30rem; padding: 2rem;">
+		<div class="card text-dark bg-light padded">
 		  <div class="card-body">
 		    <h5 class="card-title display-5">Log Customers</h5>
 		    <h6 class="card-subtitle mb-2 text-muted"><%= session[:name] %></h6>

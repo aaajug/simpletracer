@@ -10,3 +10,7 @@ body {
 a {
 	cursor: pointer;
 }
+
+a .simple {
+	text-decoration: none;
+}

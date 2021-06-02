@@ -20,7 +20,7 @@
 							<%= render 'form', establishment: @establishment %>
 						</div>
 				</div>
-				<div class="col-6" style="">
+				<div class="col-6">
 					<h4>Establishments</h4>
 					<div class="bg-light" id="establishment-list">
 						<% Establishment.order('lower(estname) asc').each do | est | %>

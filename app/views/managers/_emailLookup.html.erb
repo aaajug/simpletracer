@@ -9,12 +9,12 @@
 		</button>
 	</div>
 <% end %>
+<span class='text-danger' id='emailLookupNotice'></span>
 
 <script type="text/javascript">
 	$(".dropdown-item").click(function() {
 		$("#selectorButton").html($(this).text());
 		$("#establishmentId").val($(this).data('estid'));
 		$("#establishmentName").val($(this).text());
-
 	});
 </script>
